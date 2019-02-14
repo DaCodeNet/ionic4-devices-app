@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { TabsPage } from './tabs.page';
 
-import { HomePage } from './home.page';
-
-/*
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomePage,
+    path: 'tabs',
+    component: TabsPage,
     children: [
       {
-        path: 'appareil',
+        path: 'home',
+        children: [
+          {
+            path: '',
+            loadChildren: '../home/home.module#HomePageModule'
+          }
+        ]
+      },
+      {
+        path: 'appareils',
         children: [
           {
             path: '',
@@ -26,24 +30,23 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../settings/setings.module#SettingsPageModule'
+            loadChildren: '../settings/settings.module#SettingsPageModule'
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/tabs/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/tabs/home',
     pathMatch: 'full'
   }
 ];
-
 
 @NgModule({
   imports: [
@@ -51,22 +54,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-*/
-
-
-@NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
-  ],
-  declarations: [HomePage]
-})
-
-export class HomePageModule {}
+export class TabsPageRoutingModule {}

@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Liste des Appareils
+        </ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+  </ion-header>
+
+  <ion-content padding>
+      <ion-list>
+        <ion-button *ngFor="let appareil of appareilsList" (click)="onLoadAppareil(appareil)"> {{ appareil.name }}</ion-button>
+      </ion-list>
+    </ion-content>
+
+
+    <ion-content padding>
+        <ion-list>
+          <ion-button *ngFor="let appareil of appareilsList" (click)="onLoadAppareilModal(appareil)"> MODAL {{ appareil.name }}</ion-button>
+        </ion-list>
+      </ion-content>
+  <!--
+  <ion-content padding>
+      <ion-button (click)="onLoadAppareil('Machine à laver')">Machine à laver</ion-button>
+      <ion-button (click)="onLoadAppareil('Télévision')">Télévision</ion-button>
+      <ion-button [routerLink]="['/single-appareil', {appareilName: 'WII'}]" routerLinkActive="router-link-active">WII</ion-button>
+  </ion-content>  
+
+  <ion-footer padding>
+    <p>Bas de page</p>
+  </ion-footer>  
+-->
+
+
+
+  
