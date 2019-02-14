@@ -1,7 +1,9 @@
 import { getTestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { NavParams } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
+import { Appareil } from '../models/Appareil.model';
+import { AppareilsService } from '../services/appareils.service';
 
 @Component({
   selector: 'app-single-appareil',
@@ -10,23 +12,25 @@ import { NavParams } from '@ionic/angular';
 })
 export class SingleAppareilPage implements OnInit {
 
-  //V1 
-  //name: string;
+  appareil: Appareil;
+  index: number;
 
-  appareil: {
-    name: string,
-    description: string[];
-  };
-
-  constructor(private router: ActivatedRoute ) { }
+  constructor(public router: ActivatedRoute,
+    public modalCtrl: ModalController,
+    public appareilsService: AppareilsService
+    ) { }
 
   ngOnInit() {
-    //V1 
+    /*
+    //V1
     //this.name = this.router.snapshot.paramMap.get('appareilName');
-        
-    this.appareil = JSON.parse(this.router.snapshot.params['appareil']);
-
+    */
+    this.index = this.router.snapshot.params['index'];
+    this.appareil = this.appareilsService.appareilsList[this.index];
   }
 
+  onToggleAppareil() {
+    this.appareil.isOn = !this.appareil.isOn;
+  }
 
 }

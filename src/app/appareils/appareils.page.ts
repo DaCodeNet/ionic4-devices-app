@@ -1,7 +1,9 @@
+import { Appareil } from './../models/Appareil.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, ModalController } from '@ionic/angular';
-import { SingleAppareilPage } from '../single-appareil/single-appareil.page';
+import { ModalController } from '@ionic/angular';
+import { AppareilsService } from '../services/appareils.service';
+import { ModalAppareilPage } from '../modal-appareil/modal-appareil.page';
 
 @Component({
   selector: 'page-appareils',
@@ -10,48 +12,47 @@ import { SingleAppareilPage } from '../single-appareil/single-appareil.page';
 })
 export class AppareilsPage implements OnInit {
 
-  appareilsList = [
-    {
-      name: 'Machine à laver',
-      description: [
-        'Volume: 6 litres',
-        'Temps de lavage: 2 heures',
-        'Consommation: 173 kWh/an'
-      ]
-    },
-    {
-      name: 'Télévision',
-      description: [
-        'Dimensions: 40 pouces',
-        'Consommation: 22 kWh/an'
-      ]
-    },
-    {
-      name: 'Ordinateur',
-      description: [
-        'Marque: fait maison',
-        'Consommation: 500 kWh/an'
-      ]
-    }
-  ];
+  appareilsList: Appareil[];
 
-  constructor(private router: Router, private modalCtrl: ModalController) {}
+  constructor(private router: Router,
+              private modalCtrl: ModalController,
+              private appareilsService: AppareilsService) {}
 
   ngOnInit() {
     console.log('appareils initialisés...');
   }
 
+  ionViewWillEnter() {
+    this.appareilsList = this.appareilsService.appareilsList.slice();
+  }
+
+  onLoadAppareil(index: number) {
+    this.router.navigate(['/single-appareil', { index: index}]);
+  }
+
+  async onLoadAppareilModal(index: number) {
+    const modal = await this.modalCtrl.create({
+      component: ModalAppareilPage,
+      componentProps: {
+        'index': index
+      }
+    });
+    modal.present();
+  }
+
+
   /*
+  //V1: uniquement un string en paramètre
   onLoadAppareil(devicename: string) {
     this.router.navigate(['/single-appareil', { appareilName: [devicename] }]);
   }
-  */
 
+  //V2: un object representé en JSON
   onLoadAppareil(appareil: {name: string, description: string[]}) {
     this.router.navigate(['/single-appareil', { appareil: JSON.stringify(appareil)}]);
   }
 
-  async onLoadAppareilModal(appareil: {name: string, description: string[]}) {
+    async onLoadAppareilModal(appareil: {name: string, description: string[]}) {
     const modal = await this.modalCtrl.create({
       component: SingleAppareilPage,
       componentProps: {
@@ -60,5 +61,7 @@ export class AppareilsPage implements OnInit {
     });
     modal.present();
   }
+
+  */
 
 }

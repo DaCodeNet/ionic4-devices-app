@@ -17,6 +17,8 @@ const routes: Routes = [
   { path: 'appareils', loadChildren: './appareils/appareils.module#AppareilsPageModule' },
   { path: 'single-appareil', loadChildren: './single-appareil/single-appareil.module#SingleAppareilPageModule' },
   { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
+  { path: 'modal-appareil', loadChildren: './modal-appareil/modal-appareil.module#ModalAppareilPageModule' },
+  { path: 'options', loadChildren: './options/options.module#OptionsPageModule' },
 ];
 
 @NgModule({
